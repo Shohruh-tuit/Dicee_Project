@@ -1,6 +1,6 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 void main() {
   runApp(
@@ -24,8 +24,15 @@ class DiceApp extends StatefulWidget {
 }
 
 class _DiceAppState extends State<DiceApp> {
-  var leftImageNumber = 2;
+  int leftImageNumber = 2;
+  int rightImageNumber = 1;
 
+  void changeDicee() {
+    setState(() {
+      leftImageNumber = Random().nextInt(6) + 1;
+      rightImageNumber = Random().nextInt(6) + 1; //0-5
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -34,12 +41,7 @@ class _DiceAppState extends State<DiceApp> {
           Expanded(
             child: FlatButton(
               onPressed: () {
-                setState(() {
-                  leftImageNumber++;
-                  if(leftImageNumber == 7){
-                    leftImageNumber = 1;
-                  }
-                });
+                changeDicee();
                 print('left button clicked');
               },
               child: Image.asset("images/dice$leftImageNumber.png"),
@@ -48,9 +50,10 @@ class _DiceAppState extends State<DiceApp> {
           Expanded(
             child: FlatButton(
               onPressed: () {
+                changeDicee();
                 print('right button clicked');
               },
-              child: Image.asset("images/dice1.png"),
+              child: Image.asset("images/dice$rightImageNumber.png"),
             ),
           ),
         ],
@@ -58,4 +61,3 @@ class _DiceAppState extends State<DiceApp> {
     );
   }
 }
-
